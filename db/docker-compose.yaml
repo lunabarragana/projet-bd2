@@ -1,0 +1,18 @@
+version: '3.7'
+
+services:
+  mysql:
+    image: mysql:latest
+    ports: 
+      - "3306:3306"
+    environment:
+      - LANG=C.UTF-8
+      - MYSQL_ROOT_PASSWORD=password
+    command: ["--log_bin_trust_function_creators=1"]
+    volumes:
+      - "./script.sql:/docker-entrypoint-initdb.d/1.sql"
+      - "./script_constraint.sql:/docker-entrypoint-initdb.d/2.sql"
+      - "./script_view.sql:/docker-entrypoint-initdb.d/3.sql"
+      - "./script_procedure.sql:/docker-entrypoint-initdb.d/4.sql"
+      - "./script_insert.sql:/docker-entrypoint-initdb.d/5.sql"
+      - "./script_permissions.sql:/docker-entrypoint-initdb.d/6.sql"
